@@ -1,0 +1,29 @@
+.container .new-tweet {
+  background-color: #eee;
+  margin: 2em;
+  padding: 1em;
+  border-radius: 15px;
+}
+
+.container .new-tweet textarea {
+  width: 100%;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+}
+
+.container .new-tweet form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.container .new-tweet h2 {
+  margin: auto;
+}
+
+.container .new-tweet hr {
+  margin-top: 0;
+  margin-bottom: 1em;
+  border-top: 1px;
+  border-color: black;
+}
