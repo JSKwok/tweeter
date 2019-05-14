@@ -7,8 +7,14 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
 
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,700,700i" rel="stylesheet">
+
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
@@ -21,12 +27,22 @@
 
     <!-- Top nav bar (fixed) -->
     <nav id="nav-bar">
-      <img class="logo" src="/images/bird.png" width="80px" height="80px">
+      <img class="logo" src="/images/bird.png">
       <span class="header">Tweeter</span>
     </nav>
 
     <!-- Page-specific (main) content here -->
-    <main class="container">
+    <main class="container" style="background-color: grey; height: 2000px; margin-top: 80px">
+      <p> Change the appearance of the nav based on the following rules. The navbar should: </p>
+      <p> Be fixed to the top.
+        Tip: add a bunch of empty or placeholder lines or paragraphs to the body so you can see how it behaves when you scroll vertically.</p>
+      <p> Be 80 pixels in height
+        Be the full width of the viewport.
+        Have #00a087 as its default background colour.</p>
+      <p> Have #e8fdff as its default font colour.
+        The inner content should not be touching the viewport edge on the left/right edges and instead be spaced out 2ems on either side, as shown below.
+        Tip: Specify left/right padding but leave top/bottom padding at 0px
+      </p>
     </main>
 
   </body>
