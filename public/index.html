@@ -33,16 +33,14 @@
 
     <!-- Page-specific (main) content here -->
     <main class="container">
-      <p> Change the appearance of the nav based on the following rules. The navbar should: </p>
-      <p> Be fixed to the top.
-        Tip: add a bunch of empty or placeholder lines or paragraphs to the body so you can see how it behaves when you scroll vertically.</p>
-      <p> Be 80 pixels in height
-        Be the full width of the viewport.
-        Have #00a087 as its default background colour.</p>
-      <p> Have #e8fdff as its default font colour.
-        The inner content should not be touching the viewport edge on the left/right edges and instead be spaced out 2ems on either side, as shown below.
-        Tip: Specify left/right padding but leave top/bottom padding at 0px
-      </p>
+      <section class="new-tweet">
+        <h2>Compose Tweet</h2>
+        <form method="post" action="/tweets">
+          <textarea name="text" placeholder="What are you humming about?"></textarea>
+          <input type="submit" value="Tweet">
+          <span class="counter">140</span>
+        </form>
+      </section>
     </main>
 
   </body>
