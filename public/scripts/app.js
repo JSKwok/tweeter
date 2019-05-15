@@ -26,6 +26,12 @@ $(document).ready(function () {
     }
   }
 
+  function escape(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
   function createTweetElement(tweetObject) {
     let $output =
       `<article class="tweet">
@@ -38,7 +44,7 @@ $(document).ready(function () {
             </div>
           </div>
         </header>
-        <p class="content"> ${tweetObject['content']['text']}</p>
+        <p class="content"> ${escape(tweetObject['content']['text'])}</p>
         <footer>
           <p> ${dateCalculator(tweetObject['created_at'])} milliseconds ago </p>
           <div class="icons">
@@ -51,16 +57,17 @@ $(document).ready(function () {
     return $output;
   }
 
+
+
   loadTweets();
 
   // Using Ajax to make post request and re-rendering the tweets on the page.
   $(".container form").submit(function (event) {
     event.preventDefault();
-    console.log($(".container textarea").val().length)
     if ($(".container textarea").val().length > 140) {
       alert("Tweet is too long.")
       return;
-    } else if (!$(".container textarea").val().length) {
+    } else if (!$(".container textarea").val()) {
       alert("Tweet field is blank.")
       return;
     }
