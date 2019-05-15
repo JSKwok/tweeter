@@ -59,14 +59,23 @@ $(document).ready(function () {
 
   loadTweets();
 
+  $(".error .length").hide();
+  $(".error .null").hide();
+
   // Using Ajax to make post request and re-rendering the tweets on the page.
   $(".container form").submit(function (event) {
     event.preventDefault();
+    if (!$(".error .length").is("hidden")) {
+      $(".error .length").slideUp();
+    }
+    if (!$(".error .null").is("hidden")) {
+      $(".error .null").slideUp();
+    }
     if ($(".container textarea").val().length > 140) {
-      alert("Tweet is too long.")
+      $(".error .length").slideDown();
       return;
     } else if (!$(".container textarea").val()) {
-      alert("Tweet field is blank.")
+      $(".error .null").slideDown();
       return;
     }
     $.ajax('/tweets', {
