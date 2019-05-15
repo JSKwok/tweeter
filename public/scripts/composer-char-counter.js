@@ -7,4 +7,3 @@ $('textarea').on("input", function() {
     $(this).siblings(".counter").css("color", "")
   }
 });
-

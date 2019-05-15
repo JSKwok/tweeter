@@ -10,6 +10,9 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,700,700i" rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
@@ -19,11 +22,14 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="styles/new-tweet.css" type="text/css" />
 
+    <link rel="stylesheet" href="/styles/past-tweets.css" type="text/css"/>
+
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
 
     <!-- App JS -->
     <script type="text/javascript" src="/scripts/app.js"></script>
+
 
 
   </head>
@@ -49,10 +55,31 @@
 
       </section>
       <section class ="tweet-container">
-
+        <article class="tweet">
+          <header>
+            <div class = "header-wrap">
+              <img src="https://vignette.wikia.nocookie.net/spongebob/images/2/2a/SpongeBob_SquarePants%28copy%290.png/">
+              <div class = "account-info">
+                <h2> Spongebob Squarepants </h2>
+                <p class = "twitter-handle"> @TheRealSponge </p>
+              </div>
+            </div>
+          </header>
+          <p class="content"> This is a fake tweet. Filler text used to fill space. I'm not using an H1. Dan is not 39. </p>
+          <footer>
+            <p> 10 days ago </p>
+            <div class="icons">
+              <i class="fas fa-retweet"></i>
+              <i class="fas fa-flag"></i>
+              <i class="fas fa-heart"></i>
+            </div>
+          </footer>
+        </article>
       </section>
     </main>
 
     <script type="text/javascript" src="/scripts/composer-char-counter.js"></script>
+
+    <script type="text/javascript" src="/scripts/hover.js"></script>
   </body>
 </html>
