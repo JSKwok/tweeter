@@ -4,51 +4,91 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// Test / driver code (temporary). Eventually will get this from the server.
-const tweetData = {
-  "user": {
-    "name": "Newton",
-    "avatars": {
-      "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-      "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-      "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
+const data = [
+  {
+    "user": {
+      "name": "Newton",
+      "avatars": {
+        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
+        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
+        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
+      },
+      "handle": "@SirIsaac"
     },
-    "handle": "@SirIsaac"
+    "content": {
+      "text": "If I have seen further it is by standing on the shoulders of giants"
+    },
+    "created_at": 1461116232227
   },
-  "content": {
-    "text": "If I have seen further it is by standing on the shoulders of giants"
+  {
+    "user": {
+      "name": "Descartes",
+      "avatars": {
+        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
+        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
+        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
+      },
+      "handle": "@rd" },
+    "content": {
+      "text": "Je pense , donc je suis"
+    },
+    "created_at": 1461113959088
   },
-  "created_at": 1461116232227
-}
+  {
+    "user": {
+      "name": "Johann von Goethe",
+      "avatars": {
+        "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
+        "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
+        "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
+      },
+      "handle": "@johann49"
+    },
+    "content": {
+      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
+    },
+    "created_at": 1461113796368
+  }
+];
 
 $(document).ready(function () {
+
+  function renderTweets (tweetArray) {
+    for (let i = 0; i < tweetArray.length; i++) {
+      let $tweet = createTweetElement(tweetArray[i]);
+      $('.tweet-container').append($tweet);
+      console.log(i);
+    }
+  }
 
   function createTweetElement(tweetObject) {
     let $output = $("<article>").addClass("tweet");
     $output.append(
       $("<header>").append(
         $("<div>", {class: "header-wrap"}).append(
-          $("<img src = https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png>"
+          $("<img>", { src: tweetObject['user']['avatars']['regular']}
           ),
           $("<div>", {class: "account-info"}).append(
             $("<h2>").text(
-              "Spongebob Squarepants"),
+              tweetObject['user']['name']
+            ),
             $("<p>", {class: "twitter-handle"}).text(
-              "@TheRealSponge")
+              tweetObject['user']['handle']
+            )
           )
         )
       ),
       $("<p>", {class: "content"}).text(
-        "If I have seen further it is by standing on the shoulders of giants"
+        tweetObject['content']['text']
       ),
       $("<footer>").append(
         $("<p>").text(
-          " 10 days ago "
+          " Tweeted at some point... "
         ),
         $("<div>", {class: "icons"}).append(
+          $("<i>", {class: "fas fa-heart"}),
           $("<i>", {class: "fas fa-retweet"}),
-          $("<i>", {class: "fas fa-retweet"}),
-          $("<i>", {class: "fas fa-retweet"})
+          $("<i>", {class: "fas fa-flag"})
         )
       )
     )
@@ -56,42 +96,8 @@ $(document).ready(function () {
     return $output[0];
   }
 
-var $tweet = createTweetElement(tweetData);
-console.log($tweet)
-$('.tweet-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
-console.log($('.tweet-container'))
+  renderTweets(data);
+  // var $tweet = createTweetElement(tweetObject);
+  // $('.tweet-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
 
 });
-
-
-// <section class ="tweet-container">
-//   <article class="tweet">
-//     <header>
-//       <div class = "header-wrap">
-//         <img src="https://vignette.wikia.nocookie.net/spongebob/images/2/2a/SpongeBob_SquarePants%28copy%290.png/">
-//         <div class = "account-info">
-//           <h2> Spongebob Squarepants </h2>
-//           <p class = "twitter-handle"> @TheRealSponge </p>
-//         </div>
-//       </div>
-//     </header>
-//     <p class="content"> This is a fake tweet. Filler text used to fill space. I'm not using an H1. Dan is not 39. </p>
-//     <footer>
-//       <p> 10 days ago </p>
-//       <div class="icons">
-//         <i class="fas fa-retweet"></i>
-//         <i class="fas fa-flag"></i>
-//         <i class="fas fa-heart"></i>
-//       </div>
-//     </footer>
-//   </article>
-// </section>
-
-
-
-
-
-
-
-// Test / driver code (temporary)
-// console.log($tweet); // to see what it looks like
