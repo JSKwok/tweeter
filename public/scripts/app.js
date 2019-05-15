@@ -8,17 +8,22 @@ $(document).ready(function () {
     return output;
   }
 
-  function renderTweets() {
-    $('.tweet-container').empty();
+  function loadTweets() {
     $.ajax({
-      type: "GET",
-      url: "/tweets"
-    }).done(function(tweetArray) {
-      for (let i = 0; i < tweetArray.length; i++) {
-        let $tweet = createTweetElement(tweetArray[i]);
-        $('.tweet-container').prepend($tweet);
+      url: "/tweets",
+      method : "GET",
+      success: function (result) {
+        $('.tweet-container').empty();
+        renderTweets(result);
       }
     })
+  }
+
+  function renderTweets(tweetArray) {
+    for (let i = 0; i < tweetArray.length; i++) {
+      let $tweet = createTweetElement(tweetArray[i]);
+      $('.tweet-container').prepend($tweet);
+    }
   }
 
   function createTweetElement(tweetObject) {
@@ -46,17 +51,27 @@ $(document).ready(function () {
     return $output;
   }
 
-  renderTweets();
+  loadTweets();
 
   // Using Ajax to make post request and re-rendering the tweets on the page.
   $(".container form").submit(function (event) {
     event.preventDefault();
+    console.log($(".container textarea").val().length)
+    if ($(".container textarea").val().length > 140) {
+      alert("Tweet is too long.")
+      return;
+    } else if (!$(".container textarea").val().length) {
+      alert("Tweet field is blank.")
+      return;
+    }
     $.ajax('/tweets', {
       method: 'POST',
       data: $(this).serialize(),
-    })
-    .then(function () {
-      renderTweets();
+      success: function () {
+        $(".container form")[0].reset();
+        $(".container .counter").text(140);
+        loadTweets();
+      }
     });
   });
 
