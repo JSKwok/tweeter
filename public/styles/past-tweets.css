@@ -55,3 +55,11 @@ img {
 .tweet .content {
   padding: 0em 1rem;
 }
+
+.tweet:hover {
+  opacity: 1;
+}
+
+.tweet:hover .icons {
+  opacity: 1;
+}

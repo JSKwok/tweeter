@@ -40,8 +40,6 @@ module.exports = function(DataHelpers) {
       }
     });
 
-    // Temporarily adding redirect so it doens't direct to a blank page.
-    res.redirect('/tweets');
   });
 
   return tweetsRoutes;

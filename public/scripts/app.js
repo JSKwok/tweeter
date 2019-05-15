@@ -1,103 +1,63 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": {
-        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-      },
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": {
-        "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-        "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-        "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-      },
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  },
-  {
-    "user": {
-      "name": "Johann von Goethe",
-      "avatars": {
-        "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-        "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-        "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-      },
-      "handle": "@johann49"
-    },
-    "content": {
-      "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-    },
-    "created_at": 1461113796368
-  }
-];
-
 $(document).ready(function () {
 
-  function renderTweets (tweetArray) {
-    for (let i = 0; i < tweetArray.length; i++) {
-      let $tweet = createTweetElement(tweetArray[i]);
-      $('.tweet-container').append($tweet);
-      console.log(i);
-    }
+  function dateCalculator (createdAt) {
+    let postingDay = createdAt
+    let today = new Date().getTime()
+    let difference = today - postingDay
+    let output = difference
+    return output;
+  }
+
+  function renderTweets() {
+    $('.tweet-container').empty();
+    $.ajax({
+      type: "GET",
+      url: "/tweets"
+    }).done(function(tweetArray) {
+      for (let i = 0; i < tweetArray.length; i++) {
+        let $tweet = createTweetElement(tweetArray[i]);
+        $('.tweet-container').prepend($tweet);
+      }
+    })
   }
 
   function createTweetElement(tweetObject) {
-    let $output = $("<article>").addClass("tweet");
-    $output.append(
-      $("<header>").append(
-        $("<div>", {class: "header-wrap"}).append(
-          $("<img>", { src: tweetObject['user']['avatars']['regular']}
-          ),
-          $("<div>", {class: "account-info"}).append(
-            $("<h2>").text(
-              tweetObject['user']['name']
-            ),
-            $("<p>", {class: "twitter-handle"}).text(
-              tweetObject['user']['handle']
-            )
-          )
-        )
-      ),
-      $("<p>", {class: "content"}).text(
-        tweetObject['content']['text']
-      ),
-      $("<footer>").append(
-        $("<p>").text(
-          " Tweeted at some point... "
-        ),
-        $("<div>", {class: "icons"}).append(
-          $("<i>", {class: "fas fa-heart"}),
-          $("<i>", {class: "fas fa-retweet"}),
-          $("<i>", {class: "fas fa-flag"})
-        )
-      )
-    )
-    // console.log($output[0])\
-    return $output[0];
+    let $output =
+      `<article class="tweet">
+        <header>
+          <div class = "header-wrap">
+            <img src="${tweetObject['user']['avatars']['regular']}">
+            <div class = "account-info">
+              <h2> ${tweetObject['user']['name']} </h2>
+              <p class = "twitter-handle"> ${tweetObject['user']['handle']} </p>
+            </div>
+          </div>
+        </header>
+        <p class="content"> ${tweetObject['content']['text']}</p>
+        <footer>
+          <p> ${dateCalculator(tweetObject['created_at'])} milliseconds ago </p>
+          <div class="icons">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-retweet"></i>
+            <i class="fas fa-flag"></i>
+          </div>
+        </footer>
+      </article>`
+    return $output;
   }
 
-  renderTweets(data);
-  // var $tweet = createTweetElement(tweetObject);
-  // $('.tweet-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
+  renderTweets();
+
+  // Using Ajax to make post request and re-rendering the tweets on the page.
+  $(".container form").submit(function (event) {
+    event.preventDefault();
+    $.ajax('/tweets', {
+      method: 'POST',
+      data: $(this).serialize(),
+    })
+    .then(function () {
+      renderTweets();
+    });
+  });
 
 });
