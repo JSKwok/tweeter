@@ -57,8 +57,6 @@ $(document).ready(function () {
     return $output;
   }
 
-
-
   loadTweets();
 
   // Using Ajax to make post request and re-rendering the tweets on the page.
@@ -81,5 +79,17 @@ $(document).ready(function () {
       }
     });
   });
+
+  // Hide the compose tweet panel by default, slide down when compose is clicked
+  $(".new-tweet").hide();
+  $("#nav-bar .compose").click(function (event) {
+    if ($(".new-tweet").is(":hidden")) {
+      $(".new-tweet").slideDown();
+      $(".new-tweet textarea").focus();
+      $(".new-tweet textarea").select();
+    } else {
+      $(".new-tweet").slideUp();
+    }
+  })
 
 });

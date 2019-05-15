@@ -8,17 +8,30 @@
   background-color: #00a087;
   color: #e8fdff;
   z-index: +1;
+  display: flex;
 }
 
 #nav-bar .logo {
   width: 80px;
   height: 80px;
   padding-right: 10px;
-  float: left;
+  margin-left: 0%;
 }
 
 #nav-bar .header {
   font-size: 200%;
-  float: left;
   line-height: 80px;
+}
+
+#nav-bar .compose {
+  margin: 1em;
+  align-self: center;
+  height: 60px;
+  margin-left: auto;
+  opacity: 0.75;
+  border-radius: 15px;
+}
+
+#nav-bar .compose:hover {
+  opacity: 1.0;
 }
