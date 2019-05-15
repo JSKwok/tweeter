@@ -4,6 +4,7 @@ img {
 }
 
 .tweet-container .tweet {
+  opacity: 0.5;
   margin: 2rem;
   border-radius: 15px;
   border: solid;
