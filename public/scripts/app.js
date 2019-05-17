@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+  // Calculates time since tweet given time created
   function dateCalculator (createdAt) {
     let output;
     let difference = Date.now() - createdAt
