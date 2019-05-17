@@ -17,7 +17,6 @@ This repository is built on starter code from the Lighthouse Labs Tweeter projec
 
 - Express
 - Node 5.10.x or above
-- body-parser
-- Chance
+- body-parser=
 - JQuery
 - MongoDB
