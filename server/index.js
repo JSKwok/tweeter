@@ -23,17 +23,16 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
 
   console.log(`Connected to mongodb:x ${MONGODB_URI}`);
 
-  // Because it exports a function that expects the `db` as a parameter, we can
-  // require it and pass the `db` parameter immediately:
+  // Passing the database to the database helper functions
   const DataHelpers = require("./lib/data-helpers.js")(db);
 
-  // The `tweets-routes` module works similarly: we pass it the `DataHelpers` object
-  // so it can define routes that use it to interact with the data layer.
+  // Passing the database helper functions to the routing functions
   const tweetsRoutes = require("./routes/tweets")(DataHelpers);
 
-  // Mount the tweets routes at the "/tweets" path prefix:
+  // Mount the tweets routes at the "/tweets" path prefix
   app.use("/tweets", tweetsRoutes);
 
+  // Initialize local host
   app.listen(PORT, () => {
     console.log("Example app listening on port " + PORT);
   });
