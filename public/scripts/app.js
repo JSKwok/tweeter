@@ -1,11 +1,28 @@
 $(document).ready(function () {
 
   function dateCalculator (createdAt) {
-    let postingDay = createdAt
-    let today = new Date().getTime()
-    let difference = today - postingDay
-    let output = difference
-    return output;
+    let output;
+    let difference = Date.now() - createdAt
+    if (difference >= 31557600000) {
+      output = "Over a year ago"
+      return output;
+    } else if (difference >= 2592000000 && difference < 31557600000) {
+      output = Math.floor(difference/1000/60/60/24/30)
+      return output + (output > 1? " months ago" : " month ago")
+    } else if (difference >= 86400000 && difference < 2592000000) {
+      output = Math.floor(difference/1000/60/60/24)
+      return output + (output > 1? " days ago" : " day ago")
+    } else if (difference >= 3600000 && difference < 864000000) {
+      output = Math.floor(difference/1000/60/60)
+      return output + (output > 1? " hours ago" : " hour ago")
+    } else if (difference >= 60000 && difference < 3600000) {
+      output = Math.floor(difference/1000/60)
+      return output + (output > 1? " minutes ago" : " minute ago")
+      output = Math.floor(difference/1000)
+      return output + (output > 1? " seconds ago" : " second ago")
+    } else {
+      return "Just now"
+    }
   }
 
   // Prevents the program from reading client input in the textbox as script
@@ -30,7 +47,7 @@ $(document).ready(function () {
         </header>
         <p class="content"> ${escape(tweetObject['content']['text'])}</p>
         <footer>
-          <p> ${dateCalculator(tweetObject['created_at'])} milliseconds ago </p>
+          <p> ${dateCalculator(tweetObject['created_at'])} </p>
           <div class="icons">
             <i class="fas fa-heart"></i>
             <i class="fas fa-retweet"></i>
