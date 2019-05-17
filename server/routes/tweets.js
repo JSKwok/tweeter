@@ -43,6 +43,11 @@ module.exports = function(DataHelpers) {
       }
     });
 
+  // Routing for liking a tweet
+
+  tweetRoutes.post("/:tweet", function(req, res) {})
+
+
   });
 
   return tweetsRoutes;

@@ -49,7 +49,7 @@ $(document).ready(function () {
         <footer>
           <p> ${dateCalculator(tweetObject['created_at'])} </p>
           <div class="icons">
-            <i class="fas fa-heart"></i>
+            <i class="fas fa-heart" data-objectid="${tweetObject['_id']}"></i>
             <i class="fas fa-retweet"></i>
             <i class="fas fa-flag"></i>
           </div>
