@@ -10,9 +10,8 @@ const app           = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// The in-memory database of tweets. It's a basic object with an array in it.
-// const db = require("./lib/in-memory-db");
-// Connect to MongoDB.
+//  MongoDB setup.
+
 const {MongoClient} = require("mongodb");
 const MONGODB_URI = "mongodb://localhost:27017/tweeter";
 
@@ -21,8 +20,8 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
       console.error(`Failed to connect: ${MONGODB_URI}`);
       throw err;
   }
+
   console.log(`Connected to mongodb:x ${MONGODB_URI}`);
-  // const db = database.db('tweeter');
 
   // Because it exports a function that expects the `db` as a parameter, we can
   // require it and pass the `db` parameter immediately:

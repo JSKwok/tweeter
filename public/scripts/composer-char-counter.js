@@ -1,3 +1,5 @@
+// Dynamic character counter inside the tweet box
+
 $(document).ready(function() {
   $('textarea').on("input", function() {
     const charsLeft = 140 - $(this).val().length;

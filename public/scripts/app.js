@@ -8,30 +8,14 @@ $(document).ready(function () {
     return output;
   }
 
-  function loadTweets() {
-    $.ajax({
-      url: "/tweets",
-      method : "GET",
-      success: function (result) {
-        $('.tweet-container').empty();
-        renderTweets(result);
-      }
-    })
-  }
-
-  function renderTweets(tweetArray) {
-    for (let i = 0; i < tweetArray.length; i++) {
-      let $tweet = createTweetElement(tweetArray[i]);
-      $('.tweet-container').prepend($tweet);
-    }
-  }
-
+  // Prevents the program from reading client input in the textbox as script
   function escape(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   }
 
+  // Creates the structure of a tweet using provided user informaiton
   function createTweetElement(tweetObject) {
     let $output =
       `<article class="tweet">
@@ -57,12 +41,32 @@ $(document).ready(function () {
     return $output;
   }
 
+  // Loops through an array of tweet objects and creates each tweet
+  function renderTweets(tweetArray) {
+    for (let i = 0; i < tweetArray.length; i++) {
+      let $tweet = createTweetElement(tweetArray[i]);
+      $('.tweet-container').prepend($tweet);
+    }
+  }
+
+  // Routing to lodge tweets on page load
+  function loadTweets() {
+    $.ajax({
+      url: "/tweets",
+      method : "GET",
+      success: function (result) {
+        $('.tweet-container').empty();
+        renderTweets(result);
+      }
+    })
+  }
+
+  // Function call to load tweets on page
   loadTweets();
 
+  // Displays error messages for empty tweets and tweets over word limit
   $(".error .length").hide();
   $(".error .null").hide();
-
-  // Using Ajax to make post request and re-rendering the tweets on the page.
   $(".container form").submit(function (event) {
     event.preventDefault();
     if (!$(".error .length").is("hidden")) {
@@ -78,6 +82,8 @@ $(document).ready(function () {
       $(".error .null").slideDown();
       return;
     }
+
+    // Routing to post a new tweet
     $.ajax('/tweets', {
       method: 'POST',
       data: $(this).serialize(),

@@ -7,6 +7,7 @@ const tweetsRoutes  = express.Router();
 
 module.exports = function(DataHelpers) {
 
+  // Routing for loading tweets on page
   tweetsRoutes.get("/", function(req, res) {
     DataHelpers.getTweets((err, tweets) => {
       if (err) {
@@ -17,6 +18,7 @@ module.exports = function(DataHelpers) {
     });
   });
 
+  // Routing for posting new tweets
   tweetsRoutes.post("/", function(req, res) {
     if (!req.body.text) {
       res.status(400).json({ error: 'invalid request: no data in POST body'});
@@ -32,6 +34,7 @@ module.exports = function(DataHelpers) {
       created_at: Date.now()
     };
 
+    // Saving new tweets to database
     DataHelpers.saveTweet(tweet, (err) => {
       if (err) {
         res.status(500).json({ error: err.message });
