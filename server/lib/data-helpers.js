@@ -1,5 +1,7 @@
 "use strict";
 
+const mongo = require("mongodb");
+
 // Simulates the kind of delay we see with network or filesystem operations
 const simulateDelay = require("./util/simulate-delay");
 
@@ -20,8 +22,27 @@ module.exports = function makeDataHelpers(db) {
         if (err) {
           return callback (err);
         }
-      callback(null, tweets.sort(sortNewestFirst));
+        callback(null, tweets.sort(sortNewestFirst));
       })
+    },
+
+    // Using object identifer, increases like count of corresponding tweet
+    // Calls the callback function to send tweet back to handler.
+    likeTweets: function(id, callback) {
+      const oid = new mongo.ObjectId(id)
+      db.collection("tweets").update(
+        { "_id": oid},
+        { $inc: { "likes": 1 }}
+      )
+      db.collection("tweets").find( {"_id": oid }).toArray((err, tweet) => {
+        if (err) {
+          return callback (err);
+        }
+        //console.log(tweet)
+        callback (null, tweet);
+      })
+
+      // call back (pass back to tweet.js)
     }
 
   }

@@ -35,7 +35,7 @@ $(document).ready(function () {
   // Creates the structure of a tweet using provided user informaiton
   function createTweetElement(tweetObject) {
     let $output =
-      `<article class="tweet">
+      $(`<article class="tweet">
         <header>
           <div class = "header-wrap">
             <img src="${tweetObject['user']['avatars']['regular']}">
@@ -48,21 +48,38 @@ $(document).ready(function () {
         <p class="content"> ${escape(tweetObject['content']['text'])}</p>
         <footer>
           <p> ${dateCalculator(tweetObject['created_at'])} </p>
+          <p class="likes-count"> ${tweetObject['likes']}</p>
           <div class="icons">
-            <i class="fas fa-heart" data-objectid="${tweetObject['_id']}"></i>
+            <i class="fas fa-heart likebutton" data-objectid="${tweetObject['_id']}"></i>
             <i class="fas fa-retweet"></i>
             <i class="fas fa-flag"></i>
           </div>
         </footer>
-      </article>`
+      </article>`)
     return $output;
   }
 
-  // Loops through an array of tweet objects and creates each tweet
+  // Loops through array of tweets from database and loads each tweet in front-end.
   function renderTweets(tweetArray) {
     for (let i = 0; i < tweetArray.length; i++) {
       let $tweet = createTweetElement(tweetArray[i]);
-      $('.tweet-container').prepend($tweet);
+      $('.tweet-container').prepend($tweet)
+
+      // Implements like button functionality on each tweet
+      $tweet.find('.likebutton').click(function (event) {
+        event.preventDefault();
+
+        // Passes tweet object identifer to routes via endpoint. Updates like count
+        // of the object on success.
+        $.ajax({
+          url: `/tweets/likes/${$(this).data("objectid")}`,
+          method: "POST",
+          success: function (result) {
+            $tweet.find('.likes-count').html(result)
+          }
+
+        })
+      })
     }
   }
 

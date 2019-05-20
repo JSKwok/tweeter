@@ -31,7 +31,8 @@ module.exports = function(DataHelpers) {
       content: {
         text: req.body.text
       },
-      created_at: Date.now()
+      created_at: Date.now(),
+      likes: 0
     };
 
     // Saving new tweets to database
@@ -43,12 +44,23 @@ module.exports = function(DataHelpers) {
       }
     });
 
-  // Routing for liking a tweet
+  });
 
-  tweetRoutes.post("/:tweet", function(req, res) {})
-
+ // Routing for like request; receives id and calls function to update database.
+ // Callback in data function sends updated like count back to front end.
+  tweetsRoutes.post('/likes/:id', function(req, res) {
+    let id = req.params.id;
+    DataHelpers.likeTweets(id, (err, tweet) => {
+      if (err) {
+        res.status(400).json({error : err.message})
+      } else {
+        // Sending the updated likes count back to the front-end
+        res.json(tweet[0]['likes'])
+      }
+    })
 
   });
+
 
   return tweetsRoutes;
 
